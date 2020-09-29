@@ -1,2 +1,2 @@
 # rpi-led
-Code for create light shows on a Raspberry Pi microcontroller
+Code for creating light shows on a Raspberry Pi microcontroller
