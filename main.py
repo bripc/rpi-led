@@ -44,5 +44,20 @@ pixels = neopixel.NeoPixel(
 pixels.fill((0, 0, 0))
 sleep(2)
 
-        
-
+# loop the lightwork
+current_frame = 0
+while(True):
+    for i in range(LED_STRIP_LENGTH):
+        pixel_index = i % lightwork.pixel_length
+        index = ((current_frame * lightwork.pixel_length * 3) +
+                (pixel_index * 3))
+        pixels[i] = (
+            lightwork.pixel_data[index],
+            lightwork.pixel_data[index + 1],
+            lightwork.pixel_data[index + 2])
+    pixels.show()
+    current_frame += 1
+    if current_frame >= lightwork.frames:
+        current_frame = 0
+    sleep(1 / lightwork.fps)
+    
