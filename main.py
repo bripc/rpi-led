@@ -5,7 +5,7 @@ import urllib.request, json
 
 from time import sleep
 
-LIGHTWORK_URL = 'https://lightwork.hohmbody.com/pattern/1167'
+LIGHTWORK_URL = 'https://lightwork.hohmbody.com/pattern/1161'
 DEBUG = True
 LED_STRIP_LENGTH = 50
 BRIGHTNESS = .25
@@ -52,9 +52,9 @@ while(True):
         index = ((current_frame * lightwork.pixel_length * 3) +
                 (pixel_index * 3))
         pixels[i] = (
-            lightwork.pixel_data[index + 2],
-            lightwork.pixel_data[index],
-            lightwork.pixel_data[index + 1])
+            lightwork.pixel_data[index + 1], # green
+            lightwork.pixel_data[index], # red
+            lightwork.pixel_data[index + 2]) # blue
     pixels.show()
     current_frame += 1
     if current_frame >= lightwork.frames:
