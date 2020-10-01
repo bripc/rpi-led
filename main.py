@@ -1,12 +1,12 @@
-import binascii
+import base64
 import board
 import neopixel
 import urllib.request, json
 
 from time import sleep
 
-LIGHTWORK_URL = 'https://lightwork.hohmbody.com/pattern/1161'
-DEBUG = True
+LIGHTWORK_URL = 'https://lightwork.hohmbody.com/pattern/1164'
+DEBUG = False
 LED_STRIP_LENGTH = 50
 BRIGHTNESS = .25
 
@@ -24,14 +24,13 @@ class LightWork():
             self.pixel_length = data['pixels']
             self.frames = data['frames']
             self.fps = data['fps']
-            self.pixel_data = list(binascii.b2a_base64(
-                bytearray(data['pixelData'], 'utf-8')))
+            self.pixel_data = base64.b64decode(data['pixelData'])
 
             if DEBUG:
                 print('pixel_length', self.pixel_length)
                 print('frames', self.frames)
                 print('fps', self.fps)
-                # print('pixel data', self.pixel_data)
+                print('pixel data', self.pixel_data)
 
 
 # initialize the lightwork from remote source
@@ -55,7 +54,13 @@ while(True):
             lightwork.pixel_data[index + 1], # green
             lightwork.pixel_data[index], # red
             lightwork.pixel_data[index + 2]) # blue
+        if DEBUG:
+            print('pixel_index', pixel_index)
+            print('index', index)
+            print('color', pixels[i])
     pixels.show()
+    if DEBUG:
+        input('press a key to continue')
     current_frame += 1
     if current_frame >= lightwork.frames:
         current_frame = 0
